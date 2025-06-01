@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-StockcontrolApplication<stockcontrol>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.com.ebueno.stockcontrol.StockcontrolApplication",
+            "projectName": "stockcontrol",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
