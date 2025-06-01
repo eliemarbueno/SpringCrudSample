@@ -3,5 +3,7 @@ This version do nothing, only created by spring boot initialization (https://sta
 
 # Components and references
 - Spring boot 3.5.0
+- spring web
+- spring devtools
 - Java 21
 
