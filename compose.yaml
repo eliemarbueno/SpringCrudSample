@@ -1,0 +1,36 @@
+# # version: "3.8"
+services:
+  postgres:
+    image: postgres:16.0-alpine
+    container_name: postgres
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # - ./postgres/initdb:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    restart: always
+    networks:
+      - db_net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.7'
+          memory: 384M
+
+volumes:
+  postgres_data:
+
+networks:
+  db_net:
