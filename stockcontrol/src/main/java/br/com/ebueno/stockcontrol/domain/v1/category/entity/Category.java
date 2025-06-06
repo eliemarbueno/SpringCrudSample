@@ -7,9 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Table(name = "categories")
 @Entity
 public class Category {
@@ -17,6 +19,8 @@ public class Category {
     @GeneratedValue(generator = "UUID")
     @Column(name = "category_id", updatable = false, nullable = false)
     private UUID id;
+    @Column(name = "category_code", nullable = false, length = 50)
+    private String code;
     @Column(name = "category_name", nullable = false, length = 255)
     private String name;
     @Column(name = "category_description", length = 765)
