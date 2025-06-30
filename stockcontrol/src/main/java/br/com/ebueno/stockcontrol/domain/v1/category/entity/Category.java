@@ -2,6 +2,8 @@ package br.com.ebueno.stockcontrol.domain.v1.category.entity;
 
 import java.util.UUID;
 
+import br.com.ebueno.stockcontrol.domain.v1.interfaces.IIdAsUUID;
+import br.com.ebueno.stockcontrol.domain.v1.interfaces.IName;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Table(name = "categories")
 @Entity
-public class Category {
+public class Category implements IIdAsUUID, IName {
     @Id
     @GeneratedValue(generator = "UUID")
     @Column(name = "category_id", updatable = false, nullable = false)

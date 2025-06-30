@@ -20,60 +20,55 @@ import br.com.ebueno.stockcontrol.api.v1.category.dto.CategoryUpdateDTO;
 import br.com.ebueno.stockcontrol.common.v1.constants.ConstantsApiEndpoints;
 import br.com.ebueno.stockcontrol.domain.v1.category.service.CategoryService;
 
-
-
-
 @RestController
 @RequestMapping(ConstantsApiEndpoints.CATEGORY_V1)
 public class CategoryController {
 
 	private final CategoryService categoryService;
-	
-	public CategoryController(CategoryService categoryService){
-        this.categoryService = categoryService;
-    }
 
-    @PostMapping()
-    public ResponseEntity<CategoryResponseDTO> create(@RequestBody CategoryCreateDTO createDTO){
-        CategoryResponseDTO dto = categoryService.create(createDTO);
-        if (dto == null){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
-    }
+	public CategoryController(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponseDTO>update(@PathVariable UUID id, @RequestBody CategoryUpdateDTO updateDTO){
-        CategoryResponseDTO dto = categoryService.update(id, updateDTO);
-        if (dto == null){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
-    }
+	@PostMapping()
+	public ResponseEntity<CategoryResponseDTO> create(@RequestBody CategoryCreateDTO createDTO) {
+		CategoryResponseDTO dto = categoryService.create(createDTO);
+		if (dto == null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id){
-        categoryService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<CategoryResponseDTO> update(@PathVariable UUID id, @RequestBody CategoryUpdateDTO updateDTO) {
+		CategoryResponseDTO dto = categoryService.update(id, updateDTO);
+		if (dto == null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(dto);
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponseDTO> getById(@PathVariable UUID id) {
-        CategoryResponseDTO dto = categoryService.findById(id);
-        if (dto == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
-    }
-    
-    @GetMapping()
-    public ResponseEntity<List<CategoryResponseDTO>> getAll() {
-        List<CategoryResponseDTO> dto = categoryService.findAll();
-        if (dto == null || dto.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
-    }
-    
-    
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable UUID id) {
+		categoryService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<CategoryResponseDTO> getById(@PathVariable UUID id) {
+		CategoryResponseDTO dto = categoryService.findById(id);
+		if (dto == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(dto);
+	}
+
+	@GetMapping()
+	public ResponseEntity<List<CategoryResponseDTO>> getAll() {
+		List<CategoryResponseDTO> dto = categoryService.findAll();
+		if (dto == null || dto.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(dto);
+	}
 }

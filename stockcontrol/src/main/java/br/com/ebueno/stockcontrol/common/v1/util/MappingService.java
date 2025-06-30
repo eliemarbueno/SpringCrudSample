@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 public class MappingService {
     private final ModelMapper modelMapper;
@@ -86,5 +89,13 @@ public class MappingService {
         }
         modelMapper.map(source, destination);
         return destination;
+    }
+
+    public static <S> String toJson(S source) {
+        try {
+            return new ObjectMapper().writeValueAsString(source);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to convert object to JSON", e);
+        }
     }
 }

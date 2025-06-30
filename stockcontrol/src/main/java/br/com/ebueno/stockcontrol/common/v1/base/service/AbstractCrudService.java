@@ -16,7 +16,7 @@ import br.com.ebueno.stockcontrol.common.v1.util.MappingService;
  * It can be extended to provide specific CRUD operations for different
  * entities.
  */
-public class AbstractCrudService<E, CreateDTO, UpdateDTO, ResponseDTO, ID> {
+public abstract class AbstractCrudService<E, CreateDTO, UpdateDTO, ResponseDTO, ID> {
 
 	protected final BaseRepository<E, ID> repository;
 	protected final ApplicationEventPublisher eventPublisher;
