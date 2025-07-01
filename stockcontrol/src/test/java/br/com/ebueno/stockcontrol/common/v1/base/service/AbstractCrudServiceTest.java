@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.ActiveProfiles;
 
+import br.com.ebueno.stockcontrol.common.v1.base.repository.BaseRepository;
 import br.com.ebueno.stockcontrol.domain.v1.interfaces.IIdAsUUID;
 import br.com.ebueno.stockcontrol.domain.v1.interfaces.IName;
 
@@ -31,7 +32,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 	@Autowired
 	protected AbstractCrudService<E, CreateDTO, UpdateDTO, ResponseDTO, ID> service;
 	@Autowired
-	protected JpaRepository<E, ID> repository;
+	protected BaseRepository<E, ID> repository;
 
 	protected boolean hasUniqueItem = false;
 	protected boolean uniqueItemIsCreated = false;

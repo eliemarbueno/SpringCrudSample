@@ -11,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import br.com.ebueno.stockcontrol.api.v1.category.dto.CategoryCreateDTO;
 import br.com.ebueno.stockcontrol.api.v1.category.dto.CategoryResponseDTO;
 import br.com.ebueno.stockcontrol.api.v1.category.dto.CategoryUpdateDTO;
-import br.com.ebueno.stockcontrol.common.v1.base.service.AbstractCrudServiceTest;
+import br.com.ebueno.stockcontrol.common.v1.base.service.AbstractCrudWithNameServiceTest;
 import br.com.ebueno.stockcontrol.domain.v1.category.entity.Category;
 
 @SpringBootTest
@@ -19,7 +19,7 @@ import br.com.ebueno.stockcontrol.domain.v1.category.entity.Category;
 @AutoConfigureWebClient
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
-class CategoryServiceTest extends AbstractCrudServiceTest<Category, CategoryCreateDTO, CategoryUpdateDTO, CategoryResponseDTO, UUID>	
+class CategoryServiceTest extends AbstractCrudWithNameServiceTest<Category, CategoryCreateDTO, CategoryUpdateDTO, CategoryResponseDTO, UUID>	
 {
     public CategoryServiceTest() {
         this.createDTOUnique = new CategoryCreateDTO("Unique Category", "This is a unique category for testing",

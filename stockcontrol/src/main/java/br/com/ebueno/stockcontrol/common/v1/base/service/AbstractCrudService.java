@@ -22,8 +22,8 @@ public abstract class AbstractCrudService<E, CreateDTO, UpdateDTO, ResponseDTO, 
 	protected final ApplicationEventPublisher eventPublisher;
 	protected final MappingService mappingService;
 
-	private final Class<E> entityClass;
-	private final Class<ResponseDTO> responseDTOClass;
+	protected final Class<E> entityClass;
+	protected final Class<ResponseDTO> responseDTOClass;
 
 	/***
 	 * Constructor for AbstractCrudService.
