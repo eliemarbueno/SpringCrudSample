@@ -16,7 +16,6 @@ import br.com.ebueno.stockcontrol.domain.v1.category.repository.CategoryReposito
 @Service
 public class CategoryService
 		extends AbstractCrudWithNameService<Category, CategoryCreateDTO, CategoryUpdateDTO, CategoryResponseDTO, UUID> {
-	private final CategoryRepository repository;
 
 	/**
 	 * Constructor for CategoryService.
@@ -28,15 +27,19 @@ public class CategoryService
 	public CategoryService(CategoryRepository categoryRepository, ApplicationEventPublisher eventPublisher,
 			MappingService mappingService) {
 		super(categoryRepository, eventPublisher, mappingService, Category.class, CategoryResponseDTO.class);
-		this.repository = categoryRepository;
+	}
+
+	private CategoryRepository getCategoryRepository() {
+		return (CategoryRepository) repository;
 	}
 
 	@Override
 	protected void setBeforeCreate(Category entity) {
 		//this field only used to how this feature / sample
-		long count = repository.count();
+		CategoryRepository categoryRepository = getCategoryRepository();
+		long count = categoryRepository.count();
 		String code = "CATEGORY-" + (++count);
-		while (repository.existsByCode(code)) {
+		while (categoryRepository.existsByCode(code)) {
 			code = "CATEGORY-" + (++count);
 		}
 		entity.setCode(code);

@@ -20,8 +20,6 @@ import jakarta.persistence.EntityNotFoundException;
 public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, ID> 
     extends AbstractCrudService <E, CreateDTO, UpdateDTO, ResponseDTO, ID> {
 
-    protected BaseWithNameRepository<E, ID> repository;
-
     /**
      * Constructor for AbstractCrudWithNameService.
      * @param repository the repository for the entity type
@@ -35,7 +33,13 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
                                         MappingService mappingService,
                                         Class<E> entityClass,
                                         Class<ResponseDTO> responseDTOClass) {
-        super(repository, eventPublisher, mappingService, entityClass, responseDTOClass);
+    	super(repository, eventPublisher, mappingService, entityClass, responseDTOClass);
+    }
+
+    private BaseWithNameRepository<E, ID> getWithNameRepository() {
+        // O cast é seguro porque o construtor exige um BaseWithNameRepository.
+        // Este método encapsula a conversão de tipo.
+        return (BaseWithNameRepository<E, ID>) repository;
     }
 
     /**
@@ -49,7 +53,7 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
     		return findAll(pageable);
     	}
     	
-        return repository.findAllByNameContainingIgnoreCase(name, pageable)
+        return getWithNameRepository().findAllByNameContainingIgnoreCase(name, pageable)
                 .map(entity -> mappingService.map(entity, responseDTOClass));
     }
 
@@ -59,7 +63,7 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
      * @return a list of response DTOs containing the found entities
      */
     public List<ResponseDTO> listByName(String name) {
-        return repository.findAllByNameContainingIgnoreCase(name)
+        return getWithNameRepository().findAllByNameContainingIgnoreCase(name)
                 .stream()
                 .map(entity -> mappingService.map(entity, responseDTOClass))
                 .collect(Collectors.toList());
@@ -72,7 +76,7 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
      * @throws EntityNotFoundException if no entity with the given name is found
      */
     public ResponseDTO findByName(String name) {
-        E entity = repository.findByName(name)
+        E entity = getWithNameRepository().findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Entity with name " + name + " not found"));
         return mappingService.map(entity, responseDTOClass);
     }
@@ -84,7 +88,7 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
      * @return a page of response DTOs containing the found entities
      */
     public Page<ResponseDTO> findAllByNameContainingIgnoreCase(String name, Pageable pageable) {
-        return repository.findAllByNameContainingIgnoreCase(name, pageable)
+        return getWithNameRepository().findAllByNameContainingIgnoreCase(name, pageable)
                 .map(entity -> mappingService.map(entity, responseDTOClass));
     }
 
@@ -95,7 +99,7 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
      * @return a page of response DTOs containing the found entities
      */
     public Page<ResponseDTO> findAllByName(String name, Pageable pageable) {
-        return repository.findAllByName(name, pageable)
+        return getWithNameRepository().findAllByName(name, pageable)
                 .map(entity -> mappingService.map(entity, responseDTOClass));
     }
 
@@ -106,7 +110,7 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
      * @return a page of response DTOs containing the found entities
      */
     public List<ResponseDTO> listAllByName(String name) {
-        return repository.findAllByName(name)
+        return getWithNameRepository().findAllByName(name)
                 .stream()
                 .map(entity -> mappingService.map(entity, responseDTOClass))
                 .collect(Collectors.toList());
@@ -118,11 +122,9 @@ public class AbstractCrudWithNameService <E, CreateDTO, UpdateDTO, ResponseDTO, 
      * @return a list of response DTOs containing the found entities
      */
     public List<ResponseDTO> listAllByNameContainingIgnoreCase(String name) {
-        return repository.findAllByNameContainingIgnoreCase(name)
+        return getWithNameRepository().findAllByNameContainingIgnoreCase(name)
                 .stream()
                 .map(entity -> mappingService.map(entity, responseDTOClass))
                 .collect(Collectors.toList());
     }
 }
-
-

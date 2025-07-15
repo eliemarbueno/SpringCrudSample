@@ -24,13 +24,6 @@ class CategoryControllerTest extends AbstractCrudWithNameControllerTest<Category
 	    this.filterNameContainingNotFound = "qwertyuiopasdfghjklçzxcvbnm";
 	    this.filterNameEquals = "Category 1";
 	    this.filterNameEqualsNotFound = "qwertyuiopasdfghjklçzxcvbnm";
-	    this.filterNameStartsWith = "Category";
-	    this.filterNameStartsWithNotFound = "qwertyuiopasdfghjklçzxcvbnm";
-	    this.filterNameEndsWith = "1";
-	    this.filterNameEndsWithNotFound = "qwertyuiopasdfghjklçzxcvbnm";
-	    this.filterNameIn = "Category 1,Category 2";
-	    this.filterNameNotFound = "qwertyuiopasdfghjklçzxcvbnm";
-	    this.filterParam = "name";
 
         this.hasUniqueItem = false;
 	    this.uniqueItemIsCreated = false;

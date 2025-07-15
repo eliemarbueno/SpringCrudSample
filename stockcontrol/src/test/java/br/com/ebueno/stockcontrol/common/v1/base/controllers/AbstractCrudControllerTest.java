@@ -73,7 +73,7 @@ public abstract class AbstractCrudControllerTest<E, CreateDTO, UpdateDTO, Respon
 
 	
 	@BeforeEach
-	protected void setup() {
+	protected void createItemBeforeEachTest() {
         if (hasUniqueItem && !uniqueItemIsCreated){
 			responseCreateUniqueDTO = service.create(createDTOUnique);
 			uniqueItemIsCreated = true;
@@ -95,7 +95,7 @@ public abstract class AbstractCrudControllerTest<E, CreateDTO, UpdateDTO, Respon
 	
 	@DisplayName("Should be create a new item")
 	@Test
-	void shouldCreateNewItem() throws Exception {
+	void should_CreateNewItem_When_PostRequestIsValid() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post(getBaseUrl()).contentType(MediaType.APPLICATION_JSON)
 				.content(MappingService.toJson(createDTO))).andExpect(MockMvcResultMatchers.status().isCreated())
 				// .andExpect(MockMvcResultMatchers.header().string("Location",
@@ -110,7 +110,7 @@ public abstract class AbstractCrudControllerTest<E, CreateDTO, UpdateDTO, Respon
 
     @DisplayName("Should be update an existing item")
     @Test
-	void shouldUpdateExistingItem() throws Exception {
+	void should_UpdateExistingItem_When_PutRequestIsValid() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.put(getBaseUrlWithId()).contentType(MediaType.APPLICATION_JSON)
 				.content(MappingService.toJson(updateDTO))).andExpect(MockMvcResultMatchers.status().isOk())
 				// .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
@@ -123,25 +123,25 @@ public abstract class AbstractCrudControllerTest<E, CreateDTO, UpdateDTO, Respon
 
     @DisplayName("Should be delete an existing item")
     @Test
-	void shouldDeleteExistingItem() throws Exception {
+	void should_DeleteExistingItem_When_DeleteRequestIsValid() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.delete(getBaseUrlWithId())).andExpect(MockMvcResultMatchers.status().isNoContent());
 	}
     
     @DisplayName("Should be find an existing item by ID")
     @Test
-	void shouldFindExistingItemById() throws Exception {
+	void should_FindExistingItemById_When_GetRequestWithValidId() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get(getBaseUrlWithId())).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
     @DisplayName("Should be find all items")
     @Test
-    void shouldFindAllItems() throws Exception {
+    void should_FindAllItems_When_GetRequestIsMade() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get(getBaseUrl())).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @DisplayName("Should be find all items with pagination")
     @Test
-    void shouldFindAllItemsWithPagination() throws Exception {
+    void should_FindAllItemsWithPagination_when_PagingParamsAreProvided() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(getBaseUrl()).param("page", String.valueOf(pageNumber))
                 .param("size", String.valueOf(pageSize)).param("sort", sortBy + "," + sortDirection))
                 .andExpect(MockMvcResultMatchers.status().isOk());
