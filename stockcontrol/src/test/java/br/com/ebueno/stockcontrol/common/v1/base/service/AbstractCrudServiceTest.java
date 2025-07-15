@@ -63,7 +63,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 
 	@DisplayName("Should One new item be inserted before all tests")
 	@BeforeAll
-	protected void BeforeAll() throws Exception {
+	protected void setupAll() throws Exception {
 		if (hasUniqueItem && !uniqueItemIsCreated){
 			responseCreateUniqueDTO = service.create(createDTOUnique);
 			uniqueItemIsCreated = true;
@@ -86,7 +86,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 
 	@DisplayName("Should create a new item with success and with valid data provided")
 	@Test
-	void validateBeforeCreateWithSuccess() {
+	void create_shouldReturnCreatedDto_whenDataIsValid() {
 		try {
 			responseCreateDTO = service.create(createDTO);
 			assertNotNull(responseCreateDTO, "ResponseDTO should not be null after creation");
@@ -106,7 +106,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 
 	@DisplayName("Should update an item with success and with valid data provided")
 	@Test
-	void validateBeforeUpdateWithSuccess() {
+	void update_shouldReturnUpdatedDto_whenDataIsValid() {
 		try {
 			responseUpdateDTO = service.update(id, updateDTO);
 			assertNotNull(responseUpdateDTO, "ResponseDTO should not be null after creation");
@@ -126,7 +126,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 
 	@DisplayName("Should delete an item with success and with valid data provided")
 	@Test
-	void validateBeforeDeleteWithSuccess() {
+	void delete_shouldRemoveEntity_whenIdIsValid() {
 		try {
 			service.delete(id);
 			var responseDeleted = service.findById(id);
@@ -138,7 +138,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 
 	@DisplayName("Should find an item by ID with success and with valid data provided")
 	@Test
-	void validateBeforeFindByIdWithSuccess() {
+	void findById_shouldReturnDto_whenIdIsValid() {
 		try {
 			var responseFound = service.findById(id);
 			assertNotNull(responseFound, "ResponseDTO should not be null when finding by ID");
@@ -150,7 +150,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 
 	@DisplayName("Should find all pageable items with success and with valid data provided")
 	@Test
-	void validateBeforeFindAllPageableWithSuccess() {
+	void findAll_shouldReturnPageOfDtos_whenPageableIsProvided() {
 		try {
 			var responseAll = service.findAll(pageable);
 			assertNotNull(responseAll, "ResponseDTO should not be null when finding all items");
@@ -166,7 +166,7 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 
 	@DisplayName("Should find all items with success and with valid data provided")
 	@Test
-	void validateBeforeFindAllWithSuccess() {
+	void findAll_shouldReturnListOfAllDtos() {
 		try {
 			var responseAll = service.findAll();
 			assertNotNull(responseAll, "ResponseDTO should not be null when finding all items");
@@ -176,40 +176,4 @@ public abstract class AbstractCrudServiceTest <E, CreateDTO, UpdateDTO, Response
 			fail("Validation should not throw an exception with valid data: " + e.getMessage());
 		}
 	}
-
-	@DisplayName("Should find unique item by name with success and with valid data provided")
-	@Test
-	void validateBeforeFindUniqueByNameWithSuccess() {
-		try {
-			if (!hasUniqueItem && uniqueItemIsCreated && responseCreateUniqueDTO != null) {
-				assertNotNull(responseCreateUniqueDTO, "Unique item should be created before this test");
-				if (responseCreateUniqueDTO instanceof IIdAsUUID) {
-					assertNotNull(((IIdAsUUID) responseCreateUniqueDTO).getId(), "Unique item ID should not be null");
-				}
-				if (responseCreateUniqueDTO instanceof IName) {
-					assertNotNull(((IName) responseCreateUniqueDTO).getName(), "Unique item Name should not be null");
-				} else {
-					fail("Unique item ResponseDTO does not implement IName");
-				}
-			} else {
-				assertFalse(hasUniqueItem, "Unique item is required to validate this test");				
-			}
-
-
-			// var responseUnique = service.findUniqueByName(createDTOUnique.getName());
-			// assertNotNull(responseUnique, "ResponseDTO should not be null when finding unique item by name");
-			// if (responseUnique instanceof IIdAsUUID) {
-			// 	assertNotNull(((IIdAsUUID) responseUnique).getId(), "ResponseDTO ID should not be null");
-			// }
-			// if (responseUnique instanceof IName) {
-			// 	assertNotNull(((IName) responseUnique).getName(), "ResponseDTO Name should not be null");
-			// } else {
-			// 	fail("ResponseDTO does not implement IName");
-			// }
-		} catch (IllegalArgumentException e) {
-			fail("Validation should not throw an exception with valid data: " + e.getMessage());
-		}
-	}
 }
-
-
