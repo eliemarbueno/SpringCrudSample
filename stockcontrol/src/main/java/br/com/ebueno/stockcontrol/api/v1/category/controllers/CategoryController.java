@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2025, Eliemar Bueno
+ * All rights reserved.
+ *
+ * This source code is licensed under the CC BY-NC-SA 4.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 package br.com.ebueno.stockcontrol.api.v1.category.controllers;
 
 import java.util.UUID;
@@ -22,6 +30,9 @@ import br.com.ebueno.stockcontrol.api.v1.category.dto.CategoryUpdateDTO;
 import br.com.ebueno.stockcontrol.common.v1.constants.ConstantsApiEndpoints;
 import br.com.ebueno.stockcontrol.domain.v1.category.service.CategoryService;
 
+/**
+ * @author Eliemar Bueno
+ */
 @RestController
 @RequestMapping(ConstantsApiEndpoints.CATEGORY_V1)
 public class CategoryController {

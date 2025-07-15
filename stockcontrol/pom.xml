@@ -16,7 +16,11 @@
 	<description>Sample application for managing stock control</description>
 	<url />
 	<licenses>
-		<license />
+		<license>
+			<name>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</name>
+			<url>https://creativecommons.org/licenses/by-nc-sa/4.0/</url>
+			<distribution>repo</distribution>
+		</license>
 	</licenses>
 	<developers>
 		<developer>

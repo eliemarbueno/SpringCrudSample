@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2025, Eliemar Bueno
+ * All rights reserved.
+ *
+ * This source code is licensed under the CC BY-NC-SA 4.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 package br.com.ebueno.stockcontrol.domain.v1.category.service;
 
 import java.util.UUID;
@@ -13,6 +21,9 @@ import br.com.ebueno.stockcontrol.common.v1.util.MappingService;
 import br.com.ebueno.stockcontrol.domain.v1.category.entity.Category;
 import br.com.ebueno.stockcontrol.domain.v1.category.repository.CategoryRepository;
 
+/**
+ * @author Eliemar Bueno
+ */
 @Service
 public class CategoryService
 		extends AbstractCrudWithNameService<Category, CategoryCreateDTO, CategoryUpdateDTO, CategoryResponseDTO, UUID> {
