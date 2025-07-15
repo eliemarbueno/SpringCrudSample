@@ -38,9 +38,9 @@ extends AbstractCrudServiceTest<E, CreateDTO, UpdateDTO, ResponseDTO, ID> {
 	@Autowired
 	protected BaseWithNameRepository<E, ID> repository;
 
-	@DisplayName("Should by name with success and with valid data provided")
+	@DisplayName("Should find by name with success and with valid data provided")
 	@Test
-	void validateFindByNameWithSuccess() {
+	void findByName_shouldReturnDto_whenUniqueNameExists() {
 		try {
 
 			//if only one item by name
@@ -64,9 +64,9 @@ extends AbstractCrudServiceTest<E, CreateDTO, UpdateDTO, ResponseDTO, ID> {
 
 	@DisplayName("Should validate find by name with empty name")
 	@Test
-	void validateFindByNameWithEmptyName() {
+	void findByName_shouldReturnPagedResults_whenNameIsEmpty() {
 		try {
-			var response = service.findByName("", pageable);
+			var response = service.findByName("", pageable); // This actually calls findAllByNameContainingIgnoreCase
 			assertNotNull(response, "Response should not be null when finding by empty name");
 			assertTrue(!response.isEmpty(), "Response should not be empty when finding by empty name");
 		} catch (IllegalArgumentException e) {
@@ -76,7 +76,7 @@ extends AbstractCrudServiceTest<E, CreateDTO, UpdateDTO, ResponseDTO, ID> {
 	
 	@DisplayName("Should validate find by name with null name")
 	@Test
-	void validateFindByNameWithNullName() {
+	void findByName_shouldReturnPagedResults_whenNameIsNull() {
 		try {
 			var response = service.findByName(null, pageable);
 			assertNotNull(response, "Response should not be null when finding by null name");
