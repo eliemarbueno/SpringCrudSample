@@ -81,7 +81,7 @@ public abstract class AbstractCrudControllerTest<E, CreateDTO, UpdateDTO, Respon
 
 	
 	@BeforeEach
-	protected void createItemBeforeEachTest() {
+	protected void setup() {
         if (hasUniqueItem && !uniqueItemIsCreated){
 			responseCreateUniqueDTO = service.create(createDTOUnique);
 			uniqueItemIsCreated = true;
@@ -149,7 +149,7 @@ public abstract class AbstractCrudControllerTest<E, CreateDTO, UpdateDTO, Respon
 
     @DisplayName("Should be find all items with pagination")
     @Test
-    void should_FindAllItemsWithPagination_when_PagingParamsAreProvided() throws Exception {
+    void should_FindAllItemsWithPagination_When_PagingParamsAreProvided() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(getBaseUrl()).param("page", String.valueOf(pageNumber))
                 .param("size", String.valueOf(pageSize)).param("sort", sortBy + "," + sortDirection))
                 .andExpect(MockMvcResultMatchers.status().isOk());
